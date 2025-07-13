@@ -16,14 +16,11 @@ function createGrid(size) {
             cell.dataset.hoverCount = 0;
             cell.addEventListener("mouseover", () => {
                 let hoverCount = parseInt(cell.dataset.hoverCount);
-
-                console.log(hoverCount);
                 if (hoverCount === 0) {
                     const r = Math.floor(Math.random() * 256);
                     const g = Math.floor(Math.random() * 256);
                     const b = Math.floor(Math.random() * 256);
                     cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-                    console.log(`${r}, ${g}, ${b}`);
                     cell.style.opacity = "0.1";
                 } else if (hoverCount < 10) {
                     cell.style.opacity = `${(hoverCount + 1) / 10}`;
