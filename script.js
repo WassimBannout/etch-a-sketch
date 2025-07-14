@@ -1,10 +1,12 @@
-const container = document.getElementById('container');
-const resizeBtn = document.getElementById('resizeBtn');
-
+const resizeBtn = document.getElementById("resizeBtn");
+const resizeUI = document.querySelector(".resize-ui");
+const confirmResizeBtn = document.querySelector(".confirm-resize-btn");
+const gridInput = document.querySelector(".grid-input");
+const container = document.getElementById("container");
 
 function createGrid(size) {
     container.innerHTML = "";
-    const cellSize = 0.9 * Math.min(window.innerWidth, window.innerHeight) / size;
+    const cellSize = 0.8 * Math.min(window.innerWidth, window.innerHeight) / size;
     for (let i = 0; i < size; i++) {
         const row = document.createElement('div');
         row.classList.add('row');
@@ -29,16 +31,24 @@ function createGrid(size) {
             });
             row.appendChild(cell);
         }
-        container.appendChild(row);        
+        container.appendChild(row);
     }
 }
 createGrid(16);
 resizeBtn.addEventListener("click", () => {
-    let newSize = prompt("Enter grid size (max 100):");
-    newSize = parseInt(newSize);
+    resizeUI.classList.toggle("hidden");
+    if (!resizeUI.classList.contains("hidden")) {
+        gridInput.focus();
+    }
+});
+
+confirmResizeBtn.addEventListener("click", () => {
+    const newSize = parseInt(gridInput.value);
     if (Number.isNaN(newSize) || newSize < 1 || newSize > 100) {
         alert("Invalid input. Please enter a number between 1 and 100.");
         return;
     }
     createGrid(newSize);
+    resizeUI.classList.add("hidden");
+    gridInput.value = "";
 });
